@@ -14,6 +14,7 @@ The project is built using modern web development tools to ensure performance an
 2. Tailwind CSS: For rapid, customized, and responsive styling.
 3. daisyUI: For enhanced UI components and clean, accessible design elements.
 4. JavaScript (ES6+): For handling application logic and state management.
+5. API: The API is used to retrieve food items, categories, and detailed information in real-time.
 ---
 
 ## 📱 Responsive Design
@@ -28,7 +29,7 @@ This project is fully responsive and works smoothly on:
 
 ## 🌐 Live Link
 
-🔗 [https://your-live-link.com](https://your-live-link.com)
+🔗 [https://book-vibe-live-link.com](https://book-vibe-999.netlify.app/)
 
 ---
 
@@ -41,11 +42,14 @@ This project is fully responsive and works smoothly on:
 
 ---
 
+
 ## 📞 Contact
 
 **Name:** Onik Das
-**Email:** [your-email@example.com](onikdas.dev@gmail.com)
-**GitHub:** [https://github.com/your-username](https://github.com/OnikTechHub)
+
+**Email:** [onikdas.dev@gmail.com](onikdas.dev@gmail.com)
+
+**GitHub:** [https://github.com/your-OnikTechHub](https://github.com/OnikTechHub)
 
 ---
 
