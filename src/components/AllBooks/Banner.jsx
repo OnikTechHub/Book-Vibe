@@ -11,7 +11,7 @@ const Banner = () => {
                 <div>
                     <h1 className="text-5xl font-bold">Books to freshen up <br></br> your bookshelf</h1>
                     
-                    <button className="btn btn-success mt-3">View The List</button>
+                    <button className="btn btn-success mt-5">View The List</button>
                 </div>
             </div>
         </div>
