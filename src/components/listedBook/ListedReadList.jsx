@@ -1,11 +1,36 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { BookContext } from '../../context/BookContext';
 import { HiOutlineLocationMarker, HiOutlineUsers, HiOutlineDocumentText } from "react-icons/hi";
 
-const ListedReadList = () => {
+const ListedReadList = ({ sortingType }) => {
     const { readList } = useContext(BookContext);
+    const [filteredReadList, setFilteredReadList] = useState([]);
 
-    if (readList.length === 0) {
+    useEffect(() => {
+        
+        let sortedData = [...readList];
+
+        if (sortingType === 'page') {
+            sortedData.sort((a, b) => {
+                const pageA = parseInt(a.totalPages) || 0;
+                const pageB = parseInt(b.totalPages) || 0;
+                return pageB - pageA; 
+            });
+        } 
+        else if (sortingType === "rating") {
+            sortedData.sort((a, b) => {
+                const ratingA = parseFloat(a.rating) || 0;
+                const ratingB = parseFloat(b.rating) || 0;
+                return ratingB - ratingA; 
+            });
+        }
+
+        
+        setFilteredReadList(sortedData);
+
+    }, [sortingType, readList]); 
+    
+    if (filteredReadList.length === 0) {
         return (
             <div className='h-[50vh] bg-gray-100 flex flex-col items-center justify-center rounded-2xl'>
                 <h2 className='font-bold text-3xl text-[#131313]'>
@@ -17,7 +42,7 @@ const ListedReadList = () => {
     return (
         <div className="flex flex-col gap-6 p-4">
             {
-                readList.map((book) => (
+                filteredReadList.map((book) => (
                     <div key={book.bookId} className="flex flex-col md:flex-row gap-6 p-6 border border-gray-200 rounded-2xl bg-white">
 
                        

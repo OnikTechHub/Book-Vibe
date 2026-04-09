@@ -1,24 +1,50 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { BookContext } from '../../context/BookContext';
 import { HiOutlineLocationMarker, HiOutlineUsers, HiOutlineDocumentText } from "react-icons/hi";
 
-const ListedWishList = () => {
+const ListedWishList = ({ sortingType }) => {
     const { wishList } = useContext(BookContext);
+    const [filteredWishList, setFilteredWishList] = useState([]);
 
-    if (wishList.length === 0) {
+    useEffect(() => {
+   
+        let sortedData = [...wishList];
+
+        if (sortingType === 'page') {
+            sortedData.sort((a, b) => {
+                const pageA = parseInt(a.totalPages || a.page) || 0;
+                const pageB = parseInt(b.totalPages || b.page) || 0;
+                return pageB - pageA;
+            });
+        }
+        else if (sortingType === "rating") {
+            sortedData.sort((a, b) => {
+                const ratingA = parseFloat(a.rating) || 0;
+                const ratingB = parseFloat(b.rating) || 0;
+                return ratingB - ratingA; 
+            });
+        }
+
+   
+        setFilteredWishList(sortedData);
+
+    }, [sortingType, wishList]);
+
+
+    if (!wishList || wishList.length === 0) {
         return (
             <div className='h-[50vh] bg-gray-100 flex flex-col items-center justify-center rounded-2xl'>
-                <h2 className='font-bold text-3xl text-[#131313]'>
-                    No wish list data found
-                </h2>
+                <h2 className='font-bold text-3xl text-[#131313]'>No wish list data found</h2>
             </div>
         );
     }
+
     return (
         <div className="flex flex-col gap-6 p-4">
             {
-                wishList.map((book) => (
-                    <div key={book.bookId} className="flex flex-col md:flex-row gap-6 p-6 border border-gray-200 rounded-2xl bg-white">
+                
+                filteredWishList.map((book) => (
+                    <div key={book.bookId} className="flex flex-col md:flex-row gap-6 p-6 border border-gray-100 rounded-2xl bg-white">
 
                         <div className="bg-[#1313130d] rounded-2xl flex items-center justify-center p-8 w-full md:w-60 h-64">
                             <img
@@ -28,20 +54,21 @@ const ListedWishList = () => {
                             />
                         </div>
 
+                       
                         <div className="flex-1">
                             <h2 className="text-2xl font-bold text-[#131313] mb-2">{book.bookName}</h2>
                             <p className="font-medium text-[#131313cc] mb-4 text-base">By : {book.author}</p>
 
                             <div className="flex flex-wrap items-center gap-4 mb-4">
                                 <span className="font-bold text-[#131313]">Tag</span>
-                                {book.tags.map((tag, i) => (
+                                {book.tags && book.tags.map((tag, i) => (
                                     <span key={i} className="px-4 py-1 bg-[#23be0a0d] text-[#23BE0A] rounded-full text-sm font-medium">
                                         #{tag}
                                     </span>
                                 ))}
                                 <div className="flex items-center gap-2 text-[#13131399] ml-2">
                                     <HiOutlineLocationMarker className="text-xl" />
-                                    <span>Year of Publishing: {book.yearOfPublishing}</span>
+                                    <span>Year: {book.yearOfPublishing}</span>
                                 </div>
                             </div>
 
@@ -52,7 +79,7 @@ const ListedWishList = () => {
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <HiOutlineDocumentText className="text-xl" />
-                                    <span>Page {book.totalPages}</span>
+                                    <span>Page: {book.totalPages || book.page}</span>
                                 </div>
                             </div>
 
@@ -63,7 +90,7 @@ const ListedWishList = () => {
                                 <span className="px-5 py-2 bg-[#ffac3326] text-[#FFAC33] rounded-full text-sm">
                                     Rating: {book.rating}
                                 </span>
-                                <button className="px-5 py-2 bg-[#23BE0A] text-white rounded-full font-medium text-sm hover:bg-green-600 transition-colors">
+                                <button className="px-5 py-2 bg-[#23BE0A] text-white rounded-full font-medium text-sm">
                                     View Details
                                 </button>
                             </div>
