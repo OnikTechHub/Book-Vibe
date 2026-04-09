@@ -12,7 +12,7 @@ const BookDetails = () => {
     // console.log(expectedBook, "expectedBook")
     const { image, bookName, author, category, review, tags, totalPages, publisher, yearOfPublishing, rating } = expectedBook;
 
-    const { handleMarhAsRead, storedBooks} = useContext(BookContext)
+    const { handleMarhAsRead, handleWishList} = useContext(BookContext)
 
     
     return (
@@ -70,7 +70,7 @@ const BookDetails = () => {
 
                     <div className="flex gap-4 pt-4">
                         <button className="btn btn-outline border-gray-300 px-8 hover:bg-green-500 hover:border-green-500" onClick={() => handleMarhAsRead(expectedBook)}>Mark as Read</button>
-                        <button className="btn bg-[#50B1C9] text-white px-8 hover:bg-cyan-600"> Add to Wishlist</button>
+                        <button className="btn bg-[#50B1C9] text-white px-8 hover:bg-cyan-600" onClick={()=> handleWishList(expectedBook)}> Add to Wishlist</button>
                     </div>
                 </div>
             </div>
